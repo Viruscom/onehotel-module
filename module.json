@@ -1,0 +1,13 @@
+{
+    "name": "OneHotel",
+    "alias": "onehotel",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\OneHotel\\Providers\\OneHotelServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
