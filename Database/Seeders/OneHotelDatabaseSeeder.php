@@ -17,5 +17,6 @@
             Model::unguard();
 
             $this->call(SpecialPageReservationsTableSeeder::class);
+            $this->call(HotelSettingsTableSeeder::class);
         }
     }
