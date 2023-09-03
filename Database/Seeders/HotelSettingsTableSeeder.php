@@ -21,8 +21,8 @@
             if (!is_null($settings)) {
                 OneHotel::delete();
             }
-            
-            OneHotel::insert([
+
+            OneHotel::create([
                                  'default_reservation_system' => 'inquiry',
                                  'clientric_key'              => '',
                                  'clock_key'                  => '',
