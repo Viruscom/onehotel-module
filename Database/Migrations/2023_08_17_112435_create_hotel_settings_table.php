@@ -16,9 +16,9 @@
             Schema::create('hotel_settings', function (Blueprint $table) {
                 $table->id();
                 $table->text('default_reservation_system')->default('inquiry');
-                $table->text('clientric_key')->nullable()->default(null);
-                $table->text('clock_key')->nullable()->default(null);
-                $table->text('travelline_key')->nullable()->default(null);
+                $table->text('clientric_key')->nullable();
+                $table->text('clock_key')->nullable();
+                $table->text('travelline_key')->nullable();
 
                 $table->timestamps();
             });

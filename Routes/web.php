@@ -31,10 +31,6 @@
         /* Settings */
         Route::group(['prefix' => 'settings'], static function () {
             Route::get('/', [OneHotelController::class, 'index'])->name('admin.hotel.settings.index');
-
-            Route::group(['prefix' => '{id}'], static function () {
-                Route::get('edit', [OneHotelController::class, 'edit'])->name('admin.hotel.settings.edit');
-                Route::post('update', [OneHotelController::class, 'update'])->name('admin.hotel.settings.update');
-            });
+            Route::post('update', [OneHotelController::class, 'update'])->name('admin.hotel.settings.update');
         });
     });
