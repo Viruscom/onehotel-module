@@ -19,9 +19,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="bg-grey top-search-bar">
-                <div class="action-mass-buttons pull-right">
-                    <a href="{{ route('admin.icons.toManyPagesCreate') }}" class="btn btn-lg green"> @lang('icons::admin.icons.to_many_pages_create')</a>
-                </div>
+                <div class="action-mass-buttons pull-right"></div>
             </div>
         </div>
     </div>
