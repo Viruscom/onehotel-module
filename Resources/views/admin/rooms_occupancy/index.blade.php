@@ -14,7 +14,7 @@
     </script>
 @endsection
 @section('content')
-    @include('icons::admin.icons.breadcrumbs')
+    @include('onehotel::admin.rooms_occupancy.breadcrumbs')
     @include('admin.notify')
     <div class="row">
         <div class="col-xs-12">
@@ -25,21 +25,21 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-warning">{!! __('icons::admin.icons.first_choose_from_list') !!}</div>
+    <div class="alert alert-warning">{!! __('onehotel::admin.rooms_occupancy.warning') !!}</div>
     <div class="col-md-12">
         <div class="form form-horizontal form-bordered ">
             <div class="form-group">
-                <label for="page_select" class="control-label col-md-3">{{ __('admin.gallery.page') }}:</label>
+                <label for="page_select" class="control-label col-md-3">{{ __('onehotel::admin.room') }}:</label>
                 <div class="col-md-5">
-                    <select id="page_select" name="page" class="form-control select2" style="width: 100%;">
+                    <select id="page_select" name="room_id" class="form-control select2" style="width: 100%;">
                         <option value="">@lang('admin.common.please_select')</option>
-                        {{--                        @foreach($internalLinks as $keyModule => $module)--}}
-                        {{--                            <optgroup label="{{ $module['name'] }}">--}}
-                        {{--                                @foreach($module['links'] as $link)--}}
-                        {{--                                    <option value="{{ old('url') ?: $link->url }}" module="{{Str::plural($keyModule, 1)}}" model="{{ get_class($link) }}" model_id="{{ $link->id }}">{{ $link->title }}</option>--}}
-                        {{--                                @endforeach--}}
-                        {{--                            </optgroup>--}}
-                        {{--                        @endforeach--}}
+                        @foreach($rooms as $roomCategory)
+                            <optgroup label="{{ $roomCategory->title }}">
+                                @foreach($roomCategory->pages as $room)
+                                    <option value="{{$room->id }}">{{ $room->title }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
                     </select>
                 </div>
             </div>

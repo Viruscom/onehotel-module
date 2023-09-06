@@ -2,9 +2,12 @@
 
     namespace Modules\OneHotel\Http\Controllers;
 
+    use App\Models\CategoryPage\CategoryPage;
+    use Carbon\Carbon;
     use Illuminate\Contracts\Support\Renderable;
     use Illuminate\Http\Request;
     use Illuminate\Routing\Controller;
+    use Modules\OneHotel\Models\RoomOccupancy;
 
     class RoomOccupancyController extends Controller
     {
@@ -15,77 +18,26 @@
          */
         public function index()
         {
-            return view('onehotel::admin.rooms_occupancy.index');
+            $rooms = CategoryPage::where('with_reservation_btn', true)->with('pages')->get();
+
+            return view('onehotel::admin.rooms_occupancy.index', compact('rooms'));
         }
 
-        /**
-         * Show the form for creating a new resource.
-         *
-         * @return Renderable
-         */
-        public function create()
-        {
-            return view('onehotel::create');
-        }
-
-        /**
-         * Store a newly created resource in storage.
-         *
-         * @param Request $request
-         *
-         * @return Renderable
-         */
         public function store(Request $request)
         {
-            //
+            if (!$request->has('room_id')) {
+                return response()->json(['message' => trans('onehotel::admin.rooms_occupancy.room_not_found')]);
+            }
+            $startDate = Carbon::createFromFormat('d.m.Y', $request->start_date);
+            $endDate   = Carbon::createFromFormat('d.m.Y', $request->end_date);
+
+            RoomOccupancy::create([
+                                      'page_id'    => $request->room_id,
+                                      'start_date' => $startDate,
+                                      'end_date'   => $endDate,
+                                  ]);
+
+            return response()->json(['message' => trans('admin.common.successful_edit')]);
         }
 
-        /**
-         * Show the specified resource.
-         *
-         * @param int $id
-         *
-         * @return Renderable
-         */
-        public function show($id)
-        {
-            return view('onehotel::show');
-        }
-
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param int $id
-         *
-         * @return Renderable
-         */
-        public function edit($id)
-        {
-            return view('onehotel::edit');
-        }
-
-        /**
-         * Update the specified resource in storage.
-         *
-         * @param Request $request
-         * @param int $id
-         *
-         * @return Renderable
-         */
-        public function update(Request $request, $id)
-        {
-            //
-        }
-
-        /**
-         * Remove the specified resource from storage.
-         *
-         * @param int $id
-         *
-         * @return Renderable
-         */
-        public function destroy($id)
-        {
-            //
-        }
     }
