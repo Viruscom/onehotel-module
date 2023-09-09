@@ -23,6 +23,13 @@
             return view('onehotel::admin.rooms_occupancy.index', compact('rooms'));
         }
 
+        public function getRoomDates($roomId)
+        {
+            $roomDates = RoomOccupancy::where('page_id', $roomId)->get();
+
+            return response()->json($roomDates);
+        }
+
         public function store(Request $request)
         {
             if (!$request->has('room_id')) {

@@ -18,9 +18,14 @@
                 $table->unsignedBigInteger('page_id');
                 $table->date('start_date');
                 $table->date('end_date');
+                $table->enum('slot', ['am', 'pm']);
+                $table->string('first_name');
+                $table->string('last_name');
+                $table->string('email')->nullable();
+                $table->string('phone')->nullable();
                 $table->timestamps();
 
-                $table->foreign('page_id')->references('id')->on('pages');
+                $table->foreign('page_id')->references('id')->on('pages')->onUpdate('cascade')->onDelete('cascade');
             });
         }
 

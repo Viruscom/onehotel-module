@@ -32,6 +32,7 @@
         /* Room occupancy */
         Route::group(['prefix' => 'room_occupancy'], static function () {
             Route::get('/', [RoomOccupancyController::class, 'index'])->name('admin.room_occupancy.index');
+            Route::get('get-room-occupancy/{roomId}', [RoomOccupancyController::class, 'getRoomDates'])->name('admin.room_occupancy.get-room-occupancy');
             Route::post('/store', [RoomOccupancyController::class, 'store'])->name('admin.room_occupancy.store');
         });
 

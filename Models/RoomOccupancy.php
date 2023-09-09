@@ -6,15 +6,15 @@
 
     class RoomOccupancy extends Model
     {
-        const TOURS_PATH = 'hotel/tours';
-        protected $table    = 'hotel_settings';
-        protected $fillable = ['default_reservation_system', 'clientric_key', 'clock_key', 'travelline_key'];
-        public static function getReservationPage($viewArray)
-        {
-            //Get current reservation system
-            return view('onehotel::front.reservations', [
-                'viewArray' => $viewArray,
-                'reservationSystem'
-            ]);
-        }
+        protected $table = 'room_occupancy';
+
+        protected $fillable = [
+            'page_id',
+            'start_date',
+            'end_date',
+            'first_name',
+            'last_name',
+            'email',
+            'phone'
+        ];
     }
