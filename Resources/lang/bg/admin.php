@@ -17,4 +17,5 @@
             'warning'        => '<strong>Внимание!</strong> За да видите заетост на стая или да направите резервация, първо изберете стая.',
             'room_not_found' => 'Error, room not found!',
         ],
+        'discounted_price'            => 'Цена с отстъпка',
     );
