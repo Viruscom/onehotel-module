@@ -25,26 +25,73 @@
 
         public function getRoomDates($roomId)
         {
-            $roomDates = RoomOccupancy::where('page_id', $roomId)->get();
+            $roomDates = RoomOccupancy::where('page_id', $roomId)->orderBy('start_date', 'desc')->get();
 
             return response()->json($roomDates);
         }
 
         public function store(Request $request)
         {
-            if (!$request->has('room_id')) {
+            if (!$request->has('roomId')) {
                 return response()->json(['message' => trans('onehotel::admin.rooms_occupancy.room_not_found')]);
             }
-            $startDate = Carbon::createFromFormat('d.m.Y', $request->start_date);
-            $endDate   = Carbon::createFromFormat('d.m.Y', $request->end_date);
-
             RoomOccupancy::create([
-                                      'page_id'    => $request->room_id,
-                                      'start_date' => $startDate,
-                                      'end_date'   => $endDate,
+                                      'page_id'    => $request->roomId,
+                                      'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
+                                      'end_date'   => Carbon::parse($request->end_date)->format('Y-m-d'),
+                                      'first_name' => $request->first_name,
+                                      'last_name'  => $request->last_name,
+                                      'email'      => $request->email,
+                                      'phone'      => $request->phone,
+                                      'note'       => $request->note,
                                   ]);
 
-            return response()->json(['message' => trans('admin.common.successful_edit')]);
+            $roomDates = RoomOccupancy::where('page_id', $request->roomId)->orderBy('start_date', 'desc')->get();
+
+            return response()->json($roomDates);
+        }
+
+        public function update(Request $request, $roomId)
+        {
+            $roomOccupancy = RoomOccupancy::where('page_id', $roomId)->first();
+
+            $roomOccupancy->update([
+                                       'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
+                                       'end_date'   => Carbon::parse($request->end_date)->format('Y-m-d'),
+                                       'first_name' => $request->first_name,
+                                       'last_name'  => $request->last_name,
+                                       'email'      => $request->email,
+                                       'phone'      => $request->phone,
+                                       'note'       => $request->note,
+                                   ]);
+
+            $roomDates = RoomOccupancy::where('page_id', $roomId)->orderBy('start_date', 'desc')->get();
+
+            return response()->json($roomDates);
+        }
+
+        public function anulateRoomReservation(Request $request)
+        {
+            if (!$request->has('roomId')) {
+                return response()->json(['message' => trans('onehotel::admin.rooms_occupancy.room_not_found')]);
+            }
+
+            $room = RoomOccupancy::where('page_id', $request->roomId)
+                ->where('start_date', $request->start_date)
+                ->where('end_date', $request->end_date)
+                ->where('first_name', $request->first_name)
+                ->where('last_name', $request->last_name)
+                ->where('email', $request->email)
+                ->first();
+            if (is_null($room)) {
+                return response()->json(['message' => trans('onehotel::admin.rooms_occupancy.room_not_found')]);
+            }
+
+            $room->delete();
+
+            $roomDates = RoomOccupancy::where('page_id', $request->roomId)->orderBy('start_date', 'desc')->get();
+
+            return response()->json($roomDates);
         }
 
     }

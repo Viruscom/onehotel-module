@@ -3,6 +3,7 @@
     namespace Modules\OneHotel\Models;
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Http\JsonResponse;
 
     class RoomOccupancy extends Model
     {
@@ -15,6 +16,15 @@
             'first_name',
             'last_name',
             'email',
-            'phone'
+            'phone',
+            'note',
+            'anulated_at'
         ];
+
+        public static function getRooms($roomId): JsonResponse
+        {
+            $roomDates = RoomOccupancy::where('page_id', $roomId)->orderBy('start_date', 'desc')->get();
+
+            return response()->json($roomDates);
+        }
     }

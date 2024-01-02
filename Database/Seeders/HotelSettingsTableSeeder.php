@@ -19,7 +19,9 @@
 
             $settings = OneHotel::all();
             if (!is_null($settings)) {
-                OneHotel::delete();
+                foreach ($settings as $setting) {
+                    $setting->delete();
+                }
             }
 
             OneHotel::create([

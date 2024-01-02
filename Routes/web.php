@@ -34,6 +34,9 @@
             Route::get('/', [RoomOccupancyController::class, 'index'])->name('admin.room_occupancy.index');
             Route::get('get-room-occupancy/{roomId}', [RoomOccupancyController::class, 'getRoomDates'])->name('admin.room_occupancy.get-room-occupancy');
             Route::post('/store', [RoomOccupancyController::class, 'store'])->name('admin.room_occupancy.store');
+            Route::post('{roomId}/edit', [RoomOccupancyController::class, 'edit'])->name('admin.room_occupancy.edit');
+            Route::get('{roomId}/update', [RoomOccupancyController::class, 'update'])->name('admin.room_occupancy.update');
+            Route::post('{roomId}/anulated', [RoomOccupancyController::class, 'anulateRoomReservation'])->name('admin.room_occupancy.anulate');
         });
 
         /* Settings */
