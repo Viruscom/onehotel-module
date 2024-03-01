@@ -135,7 +135,7 @@
             </div>
         </div>
 
-        <h3>Book a room</h3>
+        <h3>{{ __('onehotel::admin.rooms_occupancy.book_a_room') }}</h3>
         <div class="row">
             <form action="{{ route('admin.room_occupancy.store') }}" method="post" id="myForm">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -143,13 +143,13 @@
                 <div class="col-md-4">
                     <div class="form-group ">
                         <label for="start_date" class="control-label p-b-10 ">
-                            Start date:
+                            {{ __('onehotel::admin.rooms_occupancy.start_date') }}:
                         </label>
                         <input id="start_date" class="form-control start_date" autocomplete="off" type="text" name="start_date" value="" placeholder="Start date" required>
                     </div>
                     <div class="form-group ">
                         <label for="end_date" class="control-label p-b-10 ">
-                            End date:
+                            {{ __('onehotel::admin.rooms_occupancy.end_date') }}:
                         </label>
                         <input id="end_date" class="form-control end_date" autocomplete="off" type="text" name="end_date" value="" placeholder="End date" required>
                     </div>
@@ -157,13 +157,13 @@
                 <div class="col-md-4">
                     <div class="form-group ">
                         <label for="first_name" class="control-label p-b-10 ">
-                            Client first name:
+                            {{ __('onehotel::admin.rooms_occupancy.client_first_name') }}:
                         </label>
                         <input id="first_name" class="form-control " type="text" name="first_name" value="" placeholder="Client first name" required>
                     </div>
                     <div class="form-group ">
                         <label for="last_name" class="control-label p-b-10 ">
-                            Client last name:
+                            {{ __('onehotel::admin.rooms_occupancy.client_last_name') }}:
                         </label>
                         <input id="last_name" class="form-control " type="text" name="last_name" value="" placeholder="End date" required>
                     </div>
@@ -171,43 +171,43 @@
                 <div class="col-md-4">
                     <div class="form-group ">
                         <label for="email" class="control-label p-b-10 ">
-                            Client email:
+                            {{ __('onehotel::admin.rooms_occupancy.client_email') }}:
                         </label>
                         <input id="email" class="form-control " type="text" name="email" value="" placeholder="Client email" required>
                     </div>
                     <div class="form-group ">
                         <label for="phone" class="control-label p-b-10 ">
-                            Client phone:
+                            {{ __('onehotel::admin.rooms_occupancy.client_phone') }}:
                         </label>
                         <input id="phone" class="form-control " type="text" name="phone" value="" placeholder="Client phone" required>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="control-label p-b-10">Note</label>
+                        <label class="control-label p-b-10">{{ __('onehotel::admin.rooms_occupancy.note') }}</label>
                         <textarea name="note" class="col-xs-12 form-control m-b-10" rows="5">{{ old('note') }}</textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="btn btn-success book-room-btn">Book room</div>
+                    <div class="btn btn-success book-room-btn">{{ __('onehotel::admin.rooms_occupancy.book_room') }}</div>
                 </div>
             </form>
         </div>
 
-        <h3>List of all bookings</h3>
+        <h3>{{ __('onehotel::admin.rooms_occupancy.list_bookings') }}</h3>
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped booking-table m-t-40">
                     <thead>
                     <tr>
-                        <th>Start date</th>
-                        <th>End date</th>
-                        <th>Client first name</th>
-                        <th>Client last name</th>
-                        <th>Client email</th>
-                        <th>Client phone</th>
-                        <th>Note</th>
-                        <th class="text-right">Actions</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.start_date') }}</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.end_date') }}</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.client_first_name') }}</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.client_last_name') }}</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.client_email') }}</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.client_phone') }}</th>
+                        <th>{{ __('onehotel::admin.rooms_occupancy.note') }}</th>
+                        <th class="text-right">@lang('admin.actions')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -515,49 +515,49 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Room Occupancy</h4>
+                    <h4 class="modal-title">{{ __('onehotel::admin.rooms_occupancy.edit_room') }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="start_date" class="control-label">Start Date:</label>
+                                <label for="start_date" class="control-label">{{ __('onehotel::admin.rooms_occupancy.start_date') }}:</label>
                                 <input id="start_date_modal" class="form-control" autocomplete="off" type="text" name="start_date" placeholder="Start date" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="end_date" class="control-label">End Date:</label>
+                                <label for="end_date" class="control-label">{{ __('onehotel::admin.rooms_occupancy.end_date') }}:</label>
                                 <input id="end_date_modal" class="form-control" autocomplete="off" type="text" name="end_date" placeholder="End date" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="first_name" class="control-label">Client First Name:</label>
+                                <label for="first_name" class="control-label">{{ __('onehotel::admin.rooms_occupancy.client_first_name') }}:</label>
                                 <input id="first_name" class="form-control" type="text" name="first_name" placeholder="Client first name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="last_name" class="control-label">Client Last Name:</label>
+                                <label for="last_name" class="control-label">{{ __('onehotel::admin.rooms_occupancy.client_last_name') }}:</label>
                                 <input id="last_name" class="form-control" type="text" name="last_name" placeholder="Client last name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="email" class="control-label">Client Email:</label>
+                                <label for="email" class="control-label">{{ __('onehotel::admin.rooms_occupancy.client_email') }}:</label>
                                 <input id="email" class="form-control" type="text" name="email" placeholder="Client email" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="phone" class="control-label">Client Phone:</label>
+                                <label for="phone" class="control-label">{{ __('onehotel::admin.rooms_occupancy.client_phone') }}:</label>
                                 <input id="phone" class="form-control" type="text" name="phone" placeholder="Client phone" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Note:</label>
+                                <label class="control-label">{{ __('onehotel::admin.rooms_occupancy.note') }}:</label>
                                 <textarea name="note" class="form-control" rows="5" placeholder="Enter a note"></textarea>
                             </div>
                         </div>
@@ -565,8 +565,8 @@
 
                     <div class="modal-footer">
                         <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <div class="btn btn-success update-room-btn">Update Room</div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('onehotel::admin.rooms_occupancy.close') }}</button>
+                            <div class="btn btn-success update-room-btn">{{ __('onehotel::admin.rooms_occupancy.update_room') }}</div>
                         </div>
                     </div>
                 </div>
