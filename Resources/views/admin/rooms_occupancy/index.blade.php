@@ -377,22 +377,28 @@
             });
 
             function submitForm() {
-                $.ajax({
-                    url: '{{ route('admin.room_occupancy.store') }}',
-                    type: 'POST',
-                    data: $('#myForm').serialize(),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function (response) {
-                        alert('Successful create');
-                        fetchAndRenderCalendar($('#myForm').find('input[name="roomId"]').val());
-                        refreshTableData(response);
-                    },
-                    error: function (response) {
-                        alert('An error occurred');
-                    }
-                });
+                var startDate = $('#editModal #start_date').val();
+                var endDate   = $('#editModal #end_date').val();
+                if (startDate === endDate) {
+                    alert('Dates are equal. Please change them.');
+                } else {
+                    $.ajax({
+                        url: '{{ route('admin.room_occupancy.store') }}',
+                        type: 'POST',
+                        data: $('#myForm').serialize(),
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            alert('Successful create');
+                            fetchAndRenderCalendar($('#myForm').find('input[name="roomId"]').val());
+                            refreshTableData(response);
+                        },
+                        error: function (response) {
+                            alert('An error occurred');
+                        }
+                    });
+                }
             }
 
             function clearEditModalFields() {
