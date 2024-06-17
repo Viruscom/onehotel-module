@@ -51,10 +51,12 @@
             return response()->json($roomDates);
         }
 
-        public function update(Request $request, $roomId)
+        public function update(Request $request, $roomId, $itemId)
         {
-            $roomOccupancy = RoomOccupancy::where('page_id', $roomId)->first();
-
+            $roomOccupancy = RoomOccupancy::where('page_id', $roomId)->where('id', $itemId)->first();
+            if (is_null($roomOccupancy)) {
+                return response()->json(['message' => trans('onehotel::admin.rooms_occupancy.room_not_found')]);
+            }
             $roomOccupancy->update([
                                        'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
                                        'end_date'   => Carbon::parse($request->end_date)->format('Y-m-d'),

@@ -11,14 +11,21 @@
     |
     */
 
-    /*
-     * ADMIN ROUTES
-     */
-
     use Illuminate\Support\Facades\Route;
+    use Modules\OneHotel\Http\Controllers\FrontOneHotelController;
     use Modules\OneHotel\Http\Controllers\OneHotelController;
     use Modules\OneHotel\Http\Controllers\RoomOccupancyController;
     use Modules\OneHotel\Http\Controllers\TourController;
+
+    /* FRONT ROUTES */
+    Route::group(['prefix' => '/', 'middleware' => ['lockedSite', 'underMaintenance', 'redirects']], static function () {
+        /* With language */
+        Route::group(['prefix' => '{languageSlug}', 'where' => ['languageSlug' => '[a-zA-Z]{2}']], static function () {
+            Route::post('send-inquiry', [FrontOneHotelController::class, 'sendInquiry'])->name('send-inquiry');
+        });
+    });
+
+    /* ADMIN ROUTES */
 
     Route::group(['prefix' => 'admin/hotel', 'middleware' => ['auth']], static function () {
 
@@ -32,10 +39,10 @@
         /* Room occupancy */
         Route::group(['prefix' => 'room_occupancy'], static function () {
             Route::get('/', [RoomOccupancyController::class, 'index'])->name('admin.room_occupancy.index');
-            Route::get('get-room-occupancy/{roomId}', [RoomOccupancyController::class, 'getRoomDates'])->name('admin.room_occupancy.get-room-occupancy');
+            Route::get('get-room-occupancy/{roomId}', [RoomOccupancyController::class, 'getRoomDates'])->withoutMiddleware(['auth'])->name('admin.room_occupancy.get-room-occupancy');
             Route::post('/store', [RoomOccupancyController::class, 'store'])->name('admin.room_occupancy.store');
             Route::post('{roomId}/edit', [RoomOccupancyController::class, 'edit'])->name('admin.room_occupancy.edit');
-            Route::get('{roomId}/update', [RoomOccupancyController::class, 'update'])->name('admin.room_occupancy.update');
+            Route::get('{roomId}/{itemId}/update', [RoomOccupancyController::class, 'update'])->name('admin.room_occupancy.update');
             Route::post('{roomId}/anulated', [RoomOccupancyController::class, 'anulateRoomReservation'])->name('admin.room_occupancy.anulate');
         });
 
