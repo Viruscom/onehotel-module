@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    @include('shop::admin.settings.main.breadcrumbs')
+    @include('onehotel::admin.settings.breadcrumbs')
     @include('admin.notify')
 
     <form action="{{ route('admin.hotel.settings.update') }}" method="POST">
