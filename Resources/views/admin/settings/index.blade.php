@@ -45,14 +45,69 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                @foreach($hotelSettings as $hotelSetting)
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">{{ __('shop::admin.main_settings.'.$hotelSetting->key) }}:</label>
-                                        <div class="col-md-6">
-                                            <input type="text" name="shopSettings[{{$hotelSetting->key}}]" value="{{ old($hotelSetting->key) ?: $hotelSetting->value }}" class="form-control">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 p-t-0">Тип резервационна система:</label>
+                                    <div class="col-md-9">
+                                <span class="module">
+                                    <div class="pretty p-default p-round">
+                                        <input type="radio" name="default_reservation_system" value="inquiry" {{old('default_reservation_system') == 'inquiry' || $hotelSettings->default_reservation_system == 'inquiry' ? 'checked': ''}}>
+                                        <div class="state p-primary-o">
+                                            <label>Запитване</label>
                                         </div>
                                     </div>
-                                @endforeach
+                                </span>
+
+                                        <span class="module">
+                                    <div class="pretty p-default p-round">
+                                        <input type="radio" name="default_reservation_system" value="clientric" {{old('default_reservation_system') == 'clientric' || $hotelSettings->default_reservation_system == 'clientric' ? 'checked': ''}}>
+                                        <div class="state p-primary-o">
+                                            <label>Clientric</label>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                        <span class="module">
+                                    <div class="pretty p-default p-round">
+                                        <input type="radio" name="default_reservation_system" value="clock" {{old('default_reservation_system') == 'clock' || $hotelSettings->default_reservation_system == 'clock' ? 'checked': ''}}>
+                                        <div class="state p-primary-o">
+                                            <label>Clock</label>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                        <span class="module">
+                                    <div class="pretty p-default p-round">
+                                        <input type="radio" name="default_reservation_system" value="travelline" {{old('default_reservation_system') == 'travelline' || $hotelSettings->default_reservation_system == 'travelline' ? 'checked': ''}}>
+                                        <div class="state p-primary-o">
+                                            <label>Travelline</label>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Ключ за Clientric:</label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="clientric_key" value="{{ old('clientric_key') ?: $hotelSettings->clientric_key }}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Ключ за Clock:</label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="clock_key" value="{{ old('clock_key') ?: $hotelSettings->clock_key }}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Ключ за Travelline:</label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="travelline_key" value="{{ old('travelline_key') ?: $hotelSettings->travelline_key }}" class="form-control">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

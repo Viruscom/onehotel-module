@@ -4,6 +4,7 @@
 
     use Illuminate\Contracts\Support\Renderable;
     use Illuminate\Routing\Controller;
+    use Modules\Onehotel\Http\Requests\UpdateHotelSettingsRequest;
     use Modules\OneHotel\Models\OneHotel;
 
     class OneHotelController extends Controller
@@ -20,8 +21,11 @@
             ]);
         }
 
-        public function update()
+        public function update(UpdateHotelSettingsRequest $request)
         {
+            $hotelSettings = OneHotel::first();
+            $hotelSettings->update($request->validated());
 
+            return redirect()->route('admin.hotel.settings.index')->with(['success-message' => trans('admin.common.successful_edit')]);
         }
     }
