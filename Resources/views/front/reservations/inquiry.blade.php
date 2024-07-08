@@ -1,4 +1,4 @@
-@if($hotel->isReservationHotelInquiry())
+@if($reservationSystem->isReservationTypeInquiry())
     <p class="feedback_head">{{ trans('messages.reservation_form') }}</p>
     <form action="{{ url($languageSlug.'/send-reservations-form') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -40,7 +40,7 @@
                             <option value=""></option>
                             @foreach($rooms as $resPage)
                                     <?php
-                                    $resTrans = $resPage->translations()->where('language_id', $language->id)->first();
+                                    $resTrans = $resPage->translations()->where('locale', $languageSlug)->first();
                                     if (is_null($resTrans)) {
                                         continue;
                                     }

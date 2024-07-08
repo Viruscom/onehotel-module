@@ -1,9 +1,9 @@
-@if($hotel->isReservationTravelline())
+@if($reservationSystem->isReservationTypeTravelline())
     <script type='text/javascript'>
         $(document).ready(function () {
             (function (w) {
                 var q   = [
-                    ['setContext', '{{ $hotel->travelline_key }}', '<?php echo $languageSlug; ?>'],
+                    ['setContext', '{{ $reservationSystem->travelline_key }}', '<?php echo $languageSlug; ?>'],
                     ['embed', 'booking-form', {
                         container: 'my-booking-form'
                     }]
