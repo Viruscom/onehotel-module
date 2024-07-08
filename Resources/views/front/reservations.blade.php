@@ -36,32 +36,14 @@
     </script>
 @endsection
 @section('content')
-    <x-front.layout.partials.inner-header :model="$viewArray['currentModel']" />
-    @include('front.partials.breadcrumbs')
-    @php
-        $page = $viewArray['currentModel']->parent;
-    @endphp
-    <section class="section-top section-top-wide">
-        <div class="shell">
-            <div class="section-content">
-                <h3 data-aos="fade-up" data-aos-delay="100">{{ $page->title }}</h3>
-
-                <p data-aos="fade-up" data-aos-delay="150">{!! $page->announce !!}</p>
-            </div>
-        </div>
-    </section>
+    <x-front.layout.partials.inner-header :model="$viewArray['currentModel']"/>
+    <x-front.page-category.section-top1 :viewArray="$viewArray" :title="$viewArray['currentModel']->parent->title" :announce="optional($viewArray['currentModel']->parent)->announce"/>
 
     @include('onehotel::front.reservations.inquiry')
     @include('onehotel::front.reservations.clientric')
     @include('onehotel::front.reservations.clock')
     @include('onehotel::front.reservations.travelline')
 
-    @if($page->description !== '')
-        <section class="section-bottom section-bottom-alt">
-            <div class="shell">
-                <div class="section-content" data-aos="fade-up" data-aos-delay="50">{!! $page->description !!}</div>
-            </div>
-        </section>
-    @endif
 
+    <x-front.page-category.section-bottom2 :pageTranslation="$viewArray['currentModel']"/>
 @endsection

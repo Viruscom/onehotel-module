@@ -41,7 +41,7 @@
                         <div class="portlet light bordered">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <span>@lang('shop::admin.main_settings.index')</span>
+                                    <span>Основни настройки</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
