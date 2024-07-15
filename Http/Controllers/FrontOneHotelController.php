@@ -26,7 +26,7 @@
             ];
             $verification_data = Http::withoutVerifying()->asForm()->post($url, $params)->json();
 
-            if ($request->getHost() != $verification_data['hostname']) {
+            if (!isset($verification_data['hostname']) || $request->getHost() != $verification_data['hostname']) {
                 return redirect()->back()->withErrors(['Нещо се обърка. Опитайте отново.']);
             }
 
