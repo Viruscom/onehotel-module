@@ -15,7 +15,7 @@
         {
             Schema::table('pages', function (Blueprint $table) {
                 $table->boolean('tour_active')->default(false);
-                $table->string('tour_path')->nullable()->default(null);
+                $table->text('tour_path')->nullable()->default(null);
             });
         }
 
