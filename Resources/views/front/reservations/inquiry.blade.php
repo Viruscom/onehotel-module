@@ -1,7 +1,10 @@
 @if($reservationSystem->isReservationTypeInquiry())
     <p class="feedback_head">{{ trans('messages.reservation_form') }}</p>
-    <form action="{{ url($languageSlug.'/send-reservations-form') }}" method="POST">
+    @include('admin.notify')
+
+    <form action="{{ url($languageSlug.'/send-inquiry') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="recaptcha_response" id="recaptcha_response" value="">
         <div class="width_reservation">
             <div class="form-group">
                 <div class="col">
@@ -97,4 +100,17 @@
             </div>
         </div>
     </form>
+
+    <script src="https://www.google.com/recaptcha/api.js?render={{$recaptchaSiteKey}}"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('{{$recaptchaSiteKey}}', {action: 'submit'}).then(function (token) {
+                $('input#recaptcha_response').val(token);
+            });
+        });
+
+        function onSubmit() {
+            $("#contact-form").submit();
+        }
+    </script>
 @endif
