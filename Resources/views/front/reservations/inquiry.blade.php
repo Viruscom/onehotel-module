@@ -2,9 +2,8 @@
     <p class="feedback_head">{{ trans('messages.reservation_form') }}</p>
     @include('admin.notify')
 
-    <form action="{{ url($languageSlug.'/send-inquiry') }}" method="POST">
+    <form id="inquiry-form" action="{{ url($languageSlug.'/send-inquiry') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="recaptcha_response" id="recaptcha_response" value="">
         <div class="width_reservation">
             <div class="form-group">
                 <div class="col">
@@ -85,7 +84,8 @@
                 </div>
                 <div class="form-row antispam light">
                     <div class="col p-3"><label class="col-form-label my_form_label">{{ __('onehotel::front.antispam') }}</label>
-                        <div class="g-recaptcha" data-sitekey="{{$recaptchaSiteKey}}"></div>
+                        <div class="cf-turnstile" id="turnstile-container" data-sitekey="{{$recaptchaSiteKey}}"></div>
+                        <input type="hidden" name="turnstile" id="cf-turnstile-response">
                     </div>
                     <div class="col p-3"><label class="check-container">
                             <input type="checkbox" name="copy_to_me">
@@ -94,23 +94,47 @@
                         </label></div>
                 </div>
                 <div class="article-footer">
-                    <div class="g-recaptcha float-left" data-sitekey="{{$recaptchaSiteKey}}"></div>
                     <button type="submit" class="btn float-right">{{ __('onehotel::front.send_btn') }}</button>
                 </div>
             </div>
         </div>
     </form>
 
-    <script src="https://www.google.com/recaptcha/api.js?render={{$recaptchaSiteKey}}"></script>
-    <script>
-        grecaptcha.ready(function () {
-            grecaptcha.execute('{{$recaptchaSiteKey}}', {action: 'submit'}).then(function (token) {
-                $('input#recaptcha_response').val(token);
-            });
+    
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+    
+<script>
+    window.onloadTurnstileCallback = function() {
+        turnstile.render('#turnstile-container', {
+            sitekey: '{{$recaptchaSiteKey}}',
+            callback: function(token) {
+                document.getElementById('cf-turnstile-response').value = token;
+            },
         });
-
-        function onSubmit() {
-            $("#contact-form").submit();
+    };
+    
+    // Проверка дали turnstile е зареден
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof turnstile !== 'undefined') {
+            onloadTurnstileCallback();
+        } else {
+            // Ако още не е зареден, ще изчакаме
+            var checkTurnstile = setInterval(function() {
+                if (typeof turnstile !== 'undefined') {
+                    clearInterval(checkTurnstile);
+                    onloadTurnstileCallback();
+                }
+            }, 100);
         }
-    </script>
+    });
+    
+    // Функция за проверка на формата преди изпращане
+    document.getElementById('inquiry-form').addEventListener('submit', function(e) {
+        var token = document.getElementById('cf-turnstile-response').value;
+        if (!token) {
+            e.preventDefault();
+            alert('Моля, изчакайте валидацията от Cloudflare Turnstile да приключи.');
+        }
+    });
+</script>
 @endif
